@@ -34,11 +34,9 @@ const MemoryVisualization: React.FC<MemoryVisualizationProps> = ({ programs, seg
   );
 
   // Function to calculate position and size for visualization
-  const getBlockStyle = (block: MemoryBlock, index: number) => {
-    const blockStart = block.base;
-    const blockSize = block.size;
-    const heightPercentage = (blockSize / totalMemory) * 100;
-    const bottomPercentage = ((blockStart - osSize) / totalMemory) * 100;
+  const getBlockStyle = (block: MemoryBlock) => {
+    const heightPercentage = (block.size / totalMemory) * 100;
+    const bottomPercentage = (block.base / totalMemory) * 100;
 
     return {
       height: `${heightPercentage}%`,
@@ -89,7 +87,7 @@ const MemoryVisualization: React.FC<MemoryVisualizationProps> = ({ programs, seg
 
           {/* Program Blocks */}
           {memoryBlocks.map((block, index) => {
-            const style = getBlockStyle(block, index);
+            const style = getBlockStyle(block);
             return (
               <div
                 key={index}
